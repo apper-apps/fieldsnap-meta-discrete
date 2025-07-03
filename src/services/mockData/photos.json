@@ -2,8 +2,8 @@
   {
     "Id": 1,
     "projectId": 1,
-    "url": "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&h=600&fit=crop",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=300&h=200&fit=crop",
+    "url": "https://via.placeholder.com/800x600/4A5568/FFFFFF?text=Foundation+Work",
+    "thumbnailUrl": "https://via.placeholder.com/300x200/4A5568/FFFFFF?text=Foundation",
     "timestamp": "2024-01-20T14:30:00Z",
     "uploadedBy": "John Smith",
     "annotations": [
@@ -26,8 +26,8 @@
   {
     "Id": 2,
     "projectId": 1,
-    "url": "https://images.unsplash.com/photo-1590725175042-3b5e1702ee6a?w=800&h=600&fit=crop",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1590725175042-3b5e1702ee6a?w=300&h=200&fit=crop",
+    "url": "https://via.placeholder.com/800x600/718096/FFFFFF?text=Steel+Framing",
+    "thumbnailUrl": "https://via.placeholder.com/300x200/718096/FFFFFF?text=Framing",
     "timestamp": "2024-01-19T16:45:00Z",
     "uploadedBy": "Sarah Johnson",
     "annotations": [],
@@ -41,8 +41,8 @@
   {
     "Id": 3,
     "projectId": 2,
-    "url": "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&h=600&fit=crop",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=300&h=200&fit=crop",
+    "url": "https://via.placeholder.com/800x600/2D3748/FFFFFF?text=Electrical+Work",
+    "thumbnailUrl": "https://via.placeholder.com/300x200/2D3748/FFFFFF?text=Electrical",
     "timestamp": "2024-01-18T10:20:00Z",
     "uploadedBy": "Mike Wilson",
     "annotations": [
@@ -65,8 +65,8 @@
   {
     "Id": 4,
     "projectId": 2,
-    "url": "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=800&h=600&fit=crop",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=300&h=200&fit=crop",
+    "url": "https://via.placeholder.com/800x600/1A202C/FFFFFF?text=Plumbing+Install",
+    "thumbnailUrl": "https://via.placeholder.com/300x200/1A202C/FFFFFF?text=Plumbing",
     "timestamp": "2024-01-17T12:15:00Z",
     "uploadedBy": "Lisa Davis",
     "annotations": [],
@@ -80,8 +80,8 @@
   {
     "Id": 5,
     "projectId": 3,
-    "url": "https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?w=800&h=600&fit=crop",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?w=300&h=200&fit=crop",
+    "url": "https://via.placeholder.com/800x600/4A5568/FFFFFF?text=Bridge+Construction",
+    "thumbnailUrl": "https://via.placeholder.com/300x200/4A5568/FFFFFF?text=Bridge",
     "timestamp": "2024-01-16T15:30:00Z",
     "uploadedBy": "Tom Anderson",
     "annotations": [
@@ -104,8 +104,8 @@
   {
     "Id": 6,
     "projectId": 3,
-    "url": "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=600&fit=crop",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=300&h=200&fit=crop",
+    "url": "https://via.placeholder.com/800x600/E53E3E/FFFFFF?text=Safety+Inspection",
+    "thumbnailUrl": "https://via.placeholder.com/300x200/E53E3E/FFFFFF?text=Safety",
     "timestamp": "2024-01-15T11:45:00Z",
     "uploadedBy": "Emma Brown",
     "annotations": [],
@@ -119,8 +119,8 @@
   {
     "Id": 7,
     "projectId": 4,
-    "url": "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=800&h=600&fit=crop",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=300&h=200&fit=crop",
+    "url": "https://via.placeholder.com/800x600/D69E2E/FFFFFF?text=Demolition+Work",
+    "thumbnailUrl": "https://via.placeholder.com/300x200/D69E2E/FFFFFF?text=Demolition",
     "timestamp": "2024-01-14T09:30:00Z",
     "uploadedBy": "Chris Taylor",
     "annotations": [],
@@ -134,8 +134,8 @@
   {
     "Id": 8,
     "projectId": 5,
-    "url": "https://images.unsplash.com/photo-1572123284707-2b0d2b8c2a3a?w=800&h=600&fit=crop",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1572123284707-2b0d2b8c2a3a?w=300&h=200&fit=crop",
+    "url": "https://via.placeholder.com/800x600/38A169/FFFFFF?text=Highway+Paving",
+    "thumbnailUrl": "https://via.placeholder.com/300x200/38A169/FFFFFF?text=Paving",
     "timestamp": "2024-01-13T13:20:00Z",
     "uploadedBy": "Alex Miller",
     "annotations": [
@@ -158,8 +158,8 @@
   {
     "Id": 9,
     "projectId": 6,
-    "url": "https://images.unsplash.com/photo-1581094271901-8022df4466f9?w=800&h=600&fit=crop",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1581094271901-8022df4466f9?w=300&h=200&fit=crop",
+    "url": "https://via.placeholder.com/800x600/3182CE/FFFFFF?text=HVAC+Installation",
+    "thumbnailUrl": "https://via.placeholder.com/300x200/3182CE/FFFFFF?text=HVAC",
     "timestamp": "2024-01-12T16:00:00Z",
     "uploadedBy": "Rachel Green",
     "annotations": [],
@@ -173,8 +173,8 @@
   {
     "Id": 10,
     "projectId": 1,
-    "url": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&h=600&fit=crop",
-    "thumbnailUrl": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=300&h=200&fit=crop",
+    "url": "https://via.placeholder.com/800x600/805AD5/FFFFFF?text=Concrete+Pour",
+    "thumbnailUrl": "https://via.placeholder.com/300x200/805AD5/FFFFFF?text=Concrete",
     "timestamp": "2024-01-11T14:45:00Z",
     "uploadedBy": "David Lee",
     "annotations": [
