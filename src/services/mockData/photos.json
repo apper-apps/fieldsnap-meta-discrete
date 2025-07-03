@@ -1,0 +1,197 @@
+[
+  {
+    "Id": 1,
+    "projectId": 1,
+    "url": "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&h=600&fit=crop",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=300&h=200&fit=crop",
+    "timestamp": "2024-01-20T14:30:00Z",
+    "uploadedBy": "John Smith",
+    "annotations": [
+      {
+        "id": "1",
+        "type": "text",
+        "coordinates": { "x": 25, "y": 30 },
+        "content": "Foundation inspection completed",
+        "color": "#FF6B35",
+        "createdBy": "John Smith"
+      }
+    ],
+    "tags": ["foundation", "inspection", "progress"],
+    "location": {
+      "latitude": 40.7128,
+      "longitude": -74.0060
+    },
+    "description": "Foundation work progress - north side"
+  },
+  {
+    "Id": 2,
+    "projectId": 1,
+    "url": "https://images.unsplash.com/photo-1590725175042-3b5e1702ee6a?w=800&h=600&fit=crop",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1590725175042-3b5e1702ee6a?w=300&h=200&fit=crop",
+    "timestamp": "2024-01-19T16:45:00Z",
+    "uploadedBy": "Sarah Johnson",
+    "annotations": [],
+    "tags": ["framing", "structure"],
+    "location": {
+      "latitude": 40.7130,
+      "longitude": -74.0058
+    },
+    "description": "Steel framing installation"
+  },
+  {
+    "Id": 3,
+    "projectId": 2,
+    "url": "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=800&h=600&fit=crop",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=300&h=200&fit=crop",
+    "timestamp": "2024-01-18T10:20:00Z",
+    "uploadedBy": "Mike Wilson",
+    "annotations": [
+      {
+        "id": "2",
+        "type": "text",
+        "coordinates": { "x": 60, "y": 45 },
+        "content": "Electrical work in progress",
+        "color": "#00B894",
+        "createdBy": "Mike Wilson"
+      }
+    ],
+    "tags": ["electrical", "installation"],
+    "location": {
+      "latitude": 40.7125,
+      "longitude": -74.0062
+    },
+    "description": "Electrical installation - floor 5"
+  },
+  {
+    "Id": 4,
+    "projectId": 2,
+    "url": "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=800&h=600&fit=crop",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=300&h=200&fit=crop",
+    "timestamp": "2024-01-17T12:15:00Z",
+    "uploadedBy": "Lisa Davis",
+    "annotations": [],
+    "tags": ["plumbing", "installation"],
+    "location": {
+      "latitude": 40.7123,
+      "longitude": -74.0065
+    },
+    "description": "Plumbing rough-in complete"
+  },
+  {
+    "Id": 5,
+    "projectId": 3,
+    "url": "https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?w=800&h=600&fit=crop",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1571171637578-41bc2dd41cd2?w=300&h=200&fit=crop",
+    "timestamp": "2024-01-16T15:30:00Z",
+    "uploadedBy": "Tom Anderson",
+    "annotations": [
+      {
+        "id": "3",
+        "type": "text",
+        "coordinates": { "x": 40, "y": 70 },
+        "content": "Bridge deck completed",
+        "color": "#3498DB",
+        "createdBy": "Tom Anderson"
+      }
+    ],
+    "tags": ["bridge", "deck", "completion"],
+    "location": {
+      "latitude": 40.7135,
+      "longitude": -74.0055
+    },
+    "description": "Bridge deck construction finished"
+  },
+  {
+    "Id": 6,
+    "projectId": 3,
+    "url": "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=800&h=600&fit=crop",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1518709268805-4e9042af2176?w=300&h=200&fit=crop",
+    "timestamp": "2024-01-15T11:45:00Z",
+    "uploadedBy": "Emma Brown",
+    "annotations": [],
+    "tags": ["safety", "inspection"],
+    "location": {
+      "latitude": 40.7132,
+      "longitude": -74.0057
+    },
+    "description": "Safety inspection and final checks"
+  },
+  {
+    "Id": 7,
+    "projectId": 4,
+    "url": "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=800&h=600&fit=crop",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=300&h=200&fit=crop",
+    "timestamp": "2024-01-14T09:30:00Z",
+    "uploadedBy": "Chris Taylor",
+    "annotations": [],
+    "tags": ["demolition", "interior"],
+    "location": {
+      "latitude": 40.7140,
+      "longitude": -74.0050
+    },
+    "description": "Interior demolition progress"
+  },
+  {
+    "Id": 8,
+    "projectId": 5,
+    "url": "https://images.unsplash.com/photo-1572123284707-2b0d2b8c2a3a?w=800&h=600&fit=crop",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1572123284707-2b0d2b8c2a3a?w=300&h=200&fit=crop",
+    "timestamp": "2024-01-13T13:20:00Z",
+    "uploadedBy": "Alex Miller",
+    "annotations": [
+      {
+        "id": "4",
+        "type": "text",
+        "coordinates": { "x": 50, "y": 20 },
+        "content": "Asphalt laying in progress",
+        "color": "#E74C3C",
+        "createdBy": "Alex Miller"
+      }
+    ],
+    "tags": ["asphalt", "paving", "highway"],
+    "location": {
+      "latitude": 40.7145,
+      "longitude": -74.0048
+    },
+    "description": "Highway paving - section 3"
+  },
+  {
+    "Id": 9,
+    "projectId": 6,
+    "url": "https://images.unsplash.com/photo-1581094271901-8022df4466f9?w=800&h=600&fit=crop",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1581094271901-8022df4466f9?w=300&h=200&fit=crop",
+    "timestamp": "2024-01-12T16:00:00Z",
+    "uploadedBy": "Rachel Green",
+    "annotations": [],
+    "tags": ["hvac", "installation"],
+    "location": {
+      "latitude": 40.7138,
+      "longitude": -74.0053
+    },
+    "description": "HVAC system installation"
+  },
+  {
+    "Id": 10,
+    "projectId": 1,
+    "url": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&h=600&fit=crop",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=300&h=200&fit=crop",
+    "timestamp": "2024-01-11T14:45:00Z",
+    "uploadedBy": "David Lee",
+    "annotations": [
+      {
+        "id": "5",
+        "type": "text",
+        "coordinates": { "x": 30, "y": 60 },
+        "content": "Concrete pour completed",
+        "color": "#9B59B6",
+        "createdBy": "David Lee"
+      }
+    ],
+    "tags": ["concrete", "pour", "foundation"],
+    "location": {
+      "latitude": 40.7133,
+      "longitude": -74.0059
+    },
+    "description": "Concrete foundation pour - east wing"
+  }
+]
