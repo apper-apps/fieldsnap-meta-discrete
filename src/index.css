@@ -116,7 +116,7 @@
 }
 
 .photo-tile:hover {
-  @apply shadow-lg scale-102 border-primary;
+  @apply shadow-lg scale-105 border-primary;
 }
 
 /* Status badge styles */
