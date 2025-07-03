@@ -107,7 +107,7 @@
 }
 
 .card-hover:hover {
-  @apply shadow-xl scale-102;
+  @apply shadow-xl scale-105;
 }
 
 /* Photo tile styles */
