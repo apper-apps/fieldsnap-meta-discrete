@@ -19,16 +19,30 @@ class PhotoService {
     return { ...photo }
   }
 
-  async create(photoData) {
+async create(photoData) {
     await this.delay(500)
+    
+    // Handle image blob data
+    let imageUrl = photoData.url
+    if (photoData.imageBlob) {
+      // In a real app, this would upload to a server
+      // For now, we'll use the blob URL
+      imageUrl = photoData.url
+    }
+    
     const newPhoto = {
       ...photoData,
       Id: Math.max(...this.photos.map(p => p.Id)) + 1,
+      url: imageUrl,
       timestamp: new Date().toISOString(),
       uploadedBy: 'John Doe',
       annotations: [],
       tags: []
     }
+    
+    // Remove blob reference before storing
+    delete newPhoto.imageBlob
+    
     this.photos.push(newPhoto)
     return { ...newPhoto }
   }

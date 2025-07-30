@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { toast } from 'react-toastify'
@@ -15,8 +15,11 @@ const PhotoCapture = () => {
   const [selectedProject, setSelectedProject] = useState('')
   const [description, setDescription] = useState('')
   const [uploading, setUploading] = useState(false)
-  const [capturedImage, setCapturedImage] = useState(null)
-
+const [capturedImage, setCapturedImage] = useState(null)
+  const [cameraStream, setCameraStream] = useState(null)
+  const [showCamera, setShowCamera] = useState(false)
+  const videoRef = useRef(null)
+  const canvasRef = useRef(null)
   useEffect(() => {
     loadProjects()
   }, [])
@@ -31,31 +34,71 @@ const PhotoCapture = () => {
     }
   }
 
-  const handleCapturePhoto = () => {
-    // Simulate camera capture
-    const mockImageUrl = `https://picsum.photos/800/600?random=${Date.now()}`
-    setCapturedImage(mockImageUrl)
-    toast.success('Photo captured successfully!')
+const startCamera = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { 
+          facingMode: 'environment',
+          width: { ideal: 1920 },
+          height: { ideal: 1080 }
+        }
+      })
+      setCameraStream(stream)
+      setShowCamera(true)
+      if (videoRef.current) {
+        videoRef.current.srcObject = stream
+      }
+    } catch (err) {
+      console.error('Failed to access camera:', err)
+      toast.error('Unable to access camera. Please check permissions.')
+    }
   }
 
-  const handleSavePhoto = async () => {
+  const stopCamera = () => {
+    if (cameraStream) {
+      cameraStream.getTracks().forEach(track => track.stop())
+      setCameraStream(null)
+    }
+    setShowCamera(false)
+  }
+
+  const handleCapturePhoto = async () => {
     if (!selectedProject) {
-      toast.error('Please select a project')
+      toast.error('Please select a project first')
       return
     }
 
-    if (!capturedImage) {
-      toast.error('Please capture a photo first')
+    if (!videoRef.current || !canvasRef.current) {
+      toast.error('Camera not ready')
       return
     }
 
     try {
       setUploading(true)
       
+      // Capture photo from video stream
+      const video = videoRef.current
+      const canvas = canvasRef.current
+      const context = canvas.getContext('2d')
+      
+      canvas.width = video.videoWidth
+      canvas.height = video.videoHeight
+      context.drawImage(video, 0, 0, canvas.width, canvas.height)
+      
+      // Convert to blob
+      const blob = await new Promise(resolve => {
+        canvas.toBlob(resolve, 'image/jpeg', 0.9)
+      })
+      
+      const imageUrl = URL.createObjectURL(blob)
+      setCapturedImage(imageUrl)
+      
+      // Auto-save the photo
       const newPhoto = {
         projectId: parseInt(selectedProject),
-        url: capturedImage,
-        thumbnailUrl: capturedImage,
+        imageBlob: blob,
+        url: imageUrl,
+        thumbnailUrl: imageUrl,
         timestamp: new Date().toISOString(),
         uploadedBy: 'John Doe',
         annotations: [],
@@ -68,11 +111,15 @@ const PhotoCapture = () => {
       }
 
       await photoService.create(newPhoto)
-      toast.success('Photo saved successfully!')
-      navigate(`/projects/${selectedProject}`)
+      toast.success('Photo captured and saved successfully!')
+      
+      // Reset for next photo but keep camera active
+      setCapturedImage(null)
+      setDescription('')
+      
     } catch (err) {
-      console.error('Failed to save photo:', err)
-      toast.error('Failed to save photo')
+      console.error('Failed to capture photo:', err)
+      toast.error('Failed to capture photo')
     } finally {
       setUploading(false)
     }
@@ -82,6 +129,15 @@ const PhotoCapture = () => {
     setCapturedImage(null)
     setDescription('')
   }
+
+  // Cleanup camera on unmount
+  useEffect(() => {
+    return () => {
+      if (cameraStream) {
+        cameraStream.getTracks().forEach(track => track.stop())
+      }
+    }
+  }, [cameraStream])
 
   const projectOptions = projects.map(project => ({
     value: project.Id.toString(),
@@ -155,48 +211,97 @@ const PhotoCapture = () => {
         </div>
 
         {/* Camera Controls */}
+{/* Camera Interface */}
+        {showCamera && (
+          <div className="mb-8">
+            <div className="relative bg-black rounded-lg overflow-hidden">
+              <video
+                ref={videoRef}
+                autoPlay
+                playsInline
+                muted
+                className="w-full max-h-96 object-cover"
+              />
+              <canvas ref={canvasRef} className="hidden" />
+              
+              <div className="absolute top-4 right-4">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={stopCamera}
+                  className="bg-black/50 text-white border-white/30 hover:bg-black/70"
+                >
+                  <ApperIcon name="X" size={16} className="mr-2" />
+                  Close Camera
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
+
         <div className="flex items-center justify-center gap-4">
-          {!capturedImage ? (
+          {!showCamera ? (
             <Button
               variant="primary"
               size="lg"
-              onClick={handleCapturePhoto}
+              onClick={startCamera}
               className="btn-hover"
             >
               <ApperIcon name="Camera" size={24} className="mr-2" />
-              Capture Photo
+              Open Camera
             </Button>
           ) : (
             <div className="flex items-center gap-4">
               <Button
-                variant="outline"
-                onClick={handleRetake}
-                className="btn-hover"
-              >
-                <ApperIcon name="RotateCcw" size={20} className="mr-2" />
-                Retake
-              </Button>
-              <Button
                 variant="primary"
-                onClick={handleSavePhoto}
-                disabled={uploading}
+                size="lg"
+                onClick={handleCapturePhoto}
+                disabled={uploading || !selectedProject}
                 className="btn-hover"
               >
                 {uploading ? (
                   <>
-                    <ApperIcon name="Loader" size={20} className="mr-2 animate-spin" />
-                    Saving...
+                    <ApperIcon name="Loader" size={24} className="mr-2 animate-spin" />
+                    Capturing...
                   </>
                 ) : (
                   <>
-                    <ApperIcon name="Save" size={20} className="mr-2" />
-                    Save Photo
+                    <ApperIcon name="Camera" size={24} className="mr-2" />
+                    Capture Photo
                   </>
                 )}
               </Button>
+              
+              {!selectedProject && (
+                <div className="text-sm text-error">
+                  Select a project to capture photos
+                </div>
+              )}
             </div>
           )}
         </div>
+
+        {capturedImage && (
+          <div className="mt-8 p-4 bg-white rounded-lg border border-gray-200">
+            <div className="flex items-center gap-4">
+              <div className="w-20 h-20 rounded-lg overflow-hidden">
+                <img
+                  src={capturedImage}
+                  alt="Captured"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="flex-1">
+                <p className="text-sm text-secondary font-medium">
+                  Photo captured successfully
+                </p>
+                <p className="text-xs text-gray-500">
+                  Ready for next capture
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Photo Details */}
