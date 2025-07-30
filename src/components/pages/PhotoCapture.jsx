@@ -18,6 +18,9 @@ const PhotoCapture = () => {
 const [capturedImage, setCapturedImage] = useState(null)
   const [cameraStream, setCameraStream] = useState(null)
   const [showCamera, setShowCamera] = useState(false)
+  const [cameraError, setCameraError] = useState(null)
+  const [permissionDenied, setPermissionDenied] = useState(false)
+  const [isRequestingPermission, setIsRequestingPermission] = useState(false)
   const videoRef = useRef(null)
   const canvasRef = useRef(null)
   useEffect(() => {
@@ -44,22 +47,63 @@ const startCamera = async () => {
         }
       })
       setCameraStream(stream)
-      setShowCamera(true)
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream
+setShowCamera(true)
+      setCameraError(null)
+      setPermissionDenied(false)
+    } catch (error) {
+      console.error('Error accessing camera:', error)
+      setCameraError(error.message)
+      
+      // Handle specific error types
+      if (error.name === 'NotAllowedError') {
+        setPermissionDenied(true)
+        toast.error('Camera access denied. Please allow camera permissions and try again.')
+      } else if (error.name === 'NotFoundError') {
+        toast.error('No camera found on this device.')
+      } else if (error.name === 'NotReadableError') {
+        toast.error('Camera is already in use by another application.')
+      } else if (error.name === 'OverconstrainedError') {
+        toast.error('Camera does not support the requested settings.')
+      } else {
+        toast.error('Failed to access camera. Please check your device and permissions.')
       }
-    } catch (err) {
-      console.error('Failed to access camera:', err)
-      toast.error('Unable to access camera. Please check permissions.')
+    } finally {
+      setIsRequestingPermission(false)
     }
   }
 
-  const stopCamera = () => {
+  const requestCameraPermission = async () => {
+    setIsRequestingPermission(true)
+    setCameraError(null)
+    setPermissionDenied(false)
+    
+    try {
+      // Request camera permission explicitly
+      await navigator.mediaDevices.getUserMedia({ video: true })
+      // If successful, start the camera
+      await startCamera()
+    } catch (error) {
+      console.error('Permission request failed:', error)
+      if (error.name === 'NotAllowedError') {
+        setPermissionDenied(true)
+        setCameraError('Camera permission denied')
+      } else {
+        setCameraError(error.message)
+      }
+      setIsRequestingPermission(false)
+    }
+  }
+
+  function stopCamera() {
     if (cameraStream) {
       cameraStream.getTracks().forEach(track => track.stop())
       setCameraStream(null)
     }
+    if (videoRef.current) {
+      videoRef.current.srcObject = null
+    }
     setShowCamera(false)
+    setCameraError(null)
   }
 
   const handleCapturePhoto = async () => {
@@ -185,13 +229,70 @@ const startCamera = async () => {
           Camera
         </h2>
         
-        <div className="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg overflow-hidden mb-6 relative">
+<div className="aspect-video bg-gradient-to-br from-gray-800 to-gray-900 rounded-lg overflow-hidden mb-6 relative">
           {capturedImage ? (
             <img
               src={capturedImage}
               alt="Captured photo"
               className="w-full h-full object-cover"
             />
+          ) : cameraError || permissionDenied ? (
+            <div className="flex items-center justify-center h-full">
+              <div className="text-center max-w-md mx-auto p-6">
+                <ApperIcon name="AlertTriangle" size={64} className="text-red-400 mb-4 mx-auto" />
+                <p className="text-white text-lg mb-2">Camera Access Required</p>
+                <p className="text-gray-300 text-sm mb-6">
+                  {permissionDenied 
+                    ? "Camera permission was denied. Please allow camera access in your browser settings and try again."
+                    : cameraError || "Unable to access camera. Please check your device and permissions."
+                  }
+                </p>
+                
+                {permissionDenied && (
+                  <div className="bg-blue-900/50 border border-blue-700 rounded-lg p-4 mb-4">
+                    <p className="text-blue-200 text-sm">
+                      <strong>How to enable camera:</strong><br/>
+                      1. Click the camera icon in your browser's address bar<br/>
+                      2. Select "Allow" for camera access<br/>
+                      3. Refresh the page and try again
+                    </p>
+                  </div>
+                )}
+                
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                  <Button
+                    onClick={requestCameraPermission}
+                    disabled={isRequestingPermission}
+                    className="bg-primary hover:bg-primary/90"
+                  >
+                    <ApperIcon name="Camera" size={16} className="mr-2" />
+                    {isRequestingPermission ? 'Requesting...' : 'Try Again'}
+                  </Button>
+                  
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      const input = document.createElement('input')
+                      input.type = 'file'
+                      input.accept = 'image/*'
+                      input.onchange = (e) => {
+                        const file = e.target.files[0]
+                        if (file) {
+                          const reader = new FileReader()
+                          reader.onload = (e) => setCapturedImage(e.target.result)
+                          reader.readAsDataURL(file)
+                        }
+                      }
+                      input.click()
+                    }}
+                    className="border-white/30 text-white hover:bg-white/10"
+                  >
+                    <ApperIcon name="Upload" size={16} className="mr-2" />
+                    Upload Photo
+                  </Button>
+                </div>
+              </div>
+            </div>
           ) : (
             <div className="flex items-center justify-center h-full">
               <div className="text-center">
@@ -205,14 +306,13 @@ const startCamera = async () => {
           {/* Camera overlay */}
           <div className="absolute inset-0 border-2 border-white/30 rounded-lg pointer-events-none">
             <div className="absolute top-4 left-4 text-white text-sm bg-black/50 px-2 py-1 rounded">
-              {capturedImage ? 'Photo Captured' : 'Live Preview'}
+              {capturedImage ? 'Photo Captured' : showCamera ? 'Live Preview' : 'Preview'}
             </div>
           </div>
         </div>
 
-        {/* Camera Controls */}
-{/* Camera Interface */}
-        {showCamera && (
+        {/* Camera Interface */}
+        {showCamera && !cameraError && !permissionDenied && (
           <div className="mb-8">
             <div className="relative bg-black rounded-lg overflow-hidden">
               <video
@@ -221,6 +321,10 @@ const startCamera = async () => {
                 playsInline
                 muted
                 className="w-full max-h-96 object-cover"
+                onError={(e) => {
+                  console.error('Video element error:', e)
+                  setCameraError('Video playback failed')
+                }}
               />
               <canvas ref={canvasRef} className="hidden" />
               
@@ -240,7 +344,7 @@ const startCamera = async () => {
         )}
 
         <div className="flex items-center justify-center gap-4">
-          {!showCamera ? (
+{!showCamera && !cameraError && !permissionDenied ? (
             <Button
               variant="primary"
               size="lg"
